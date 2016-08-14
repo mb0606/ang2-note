@@ -5,7 +5,7 @@ import { Main }      from './containers'
   selector:'app',
   directives: [
     Main
-  ]
+  ],
   template: `
   <div>
     <main-container></main-container>
