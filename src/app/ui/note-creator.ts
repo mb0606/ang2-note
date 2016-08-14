@@ -23,7 +23,6 @@ import  { Component,
   ],
   template: `
     <div class="note-creator shadow-2">
-      <pre>{{newNote | json}}</pre>
       <form class="row" (submit)="onCreateNote()">
         <input
           type="text"
@@ -31,6 +30,7 @@ import  { Component,
           name="newNoteTitle"
           placeholder="Title"
           class="col-xs-10 title"
+          *ngIf="fullForm"
         >
         <input
           type="text"
@@ -38,11 +38,14 @@ import  { Component,
           name="newNoteValue"
           placeholder="Take a note..."
           class="col-xs-10"
+          (focus)="toggle(true)"
         >
         <div class="actions col-xs-12 row between-xs">
           <button
             type="submit"
             class="btn-light"
+            *ngIf="fullForm"
+
            >
             Done
           </button>
@@ -60,17 +63,21 @@ export class NoteCreator {
     title: '',
     value: ''
   };
+  fullForm: boolean = false;
   onCreateNote() {
     const { title, value } = this.newNote;
     if(title && value){
       this.createNote.next({title, value});
       this.reset()
     }
-  }
+  };
   reset() {
     this.newNote = {
         title: '',
         value: ''
       };
+  };
+  toggle(value: boolean){
+    this.fullForm = value;
   }
 };
